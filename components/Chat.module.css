@@ -1,0 +1,141 @@
+.chat {
+  background: #313338;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: calc(100vh - 8.1rem);
+  overflow: hidden;
+}
+
+.header {
+  align-items: center;
+  background: #313338;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  display: flex;
+  gap: 0.9rem;
+  min-height: 4.25rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.header img {
+  border-radius: 50%;
+}
+
+.header span {
+  display: grid;
+  min-width: 0;
+}
+
+.header small {
+  color: #949ba4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: auto;
+  padding: 1.25rem;
+}
+
+.messages::-webkit-scrollbar {
+  display: none;
+}
+
+.message {
+  border-radius: 16px;
+  max-width: min(70%, 34rem);
+  padding: 0.75rem 0.95rem;
+}
+
+.message p {
+  margin: 0 0 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.message time {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.75rem;
+}
+
+.sent {
+  align-self: flex-end;
+  background: #5865f2;
+  color: #ffffff;
+}
+
+.received {
+  align-self: flex-start;
+  background: #2b2d31;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: #f2f3f5;
+}
+
+.composer {
+  align-items: center;
+  background: #313338;
+  border-top: 1px solid rgba(0, 0, 0, 0.22);
+  display: flex;
+  gap: 0.8rem;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.composer input {
+  background: #383a40;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #f2f3f5;
+  flex: 1;
+  min-width: 0;
+  outline: 0;
+  padding: 0.95rem 1rem;
+}
+
+.composer input:focus {
+  border-color: rgba(88, 101, 242, 0.75);
+}
+
+.attach,
+.send {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+}
+
+.send {
+  background: #5865f2;
+  border-radius: 8px;
+  min-height: 2.8rem;
+  min-width: 2.8rem;
+  justify-content: center;
+}
+
+.send:hover {
+  background: #4752c4;
+}
+
+.placeholder {
+  align-items: center;
+  background: #313338;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #b5bac1;
+  display: grid;
+  justify-items: center;
+  min-height: calc(100vh - 8.1rem);
+  place-content: center;
+}
+
+@media (max-width: 35em) {
+  .message {
+    max-width: 88%;
+  }
+}

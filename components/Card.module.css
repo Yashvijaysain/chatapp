@@ -1,0 +1,40 @@
+.card {
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: none;
+  color: #dbdee1;
+  cursor: pointer;
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.7rem;
+  text-align: left;
+  width: 100%;
+}
+
+.card:hover {
+  background: #35373c;
+  border-color: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+}
+
+.card img {
+  border-radius: 50%;
+}
+
+.card span {
+  display: grid;
+  min-width: 0;
+}
+
+.card strong,
+.card small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card small {
+  color: #949ba4;
+}

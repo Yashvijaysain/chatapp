@@ -1,0 +1,22 @@
+.loader,
+.compact {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.loader {
+  min-height: 10rem;
+  width: 100%;
+}
+
+.loader img,
+.compact img {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
