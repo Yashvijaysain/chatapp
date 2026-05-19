@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 
-export const ChatAppAddress = "0xE2584873139cB8e1e2a5Ea70084B2C65D4ec56fd";
+export const ChatAppAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const ChatAppChainId = "0x7a69"; // 31337, Hardhat localhost
 
 export const ChatAppABI = [
   {
@@ -45,7 +46,7 @@ export const ChatAppABI = [
         components: [
           { internalType: "address", name: "sender", type: "address" },
           { internalType: "uint256", name: "timestamp", type: "uint256" },
-          { internalType: "string", name: "msg", type: "string" },
+          { internalType: "string", name: "content", type: "string" },
         ],
         internalType: "struct ChatApp.Message[]",
         name: "",
@@ -60,13 +61,9 @@ export const ChatAppABI = [
     name: "getAllAppUsers",
     outputs: [
       {
-        components: [
-          { internalType: "string", name: "name", type: "string" },
-          { internalType: "address", name: "accountAddress", type: "address" },
-        ],
-        internalType: "struct ChatApp.AllUserStruct[]",
+        internalType: "address[]",
         name: "",
-        type: "tuple[]",
+        type: "address[]",
       },
     ],
     stateMutability: "view",
@@ -85,6 +82,41 @@ const requiredFunctions = [
 
 const ethereum = () =>
   typeof window !== "undefined" ? window.ethereum : undefined;
+
+const switchToConfiguredNetwork = async () => {
+  const currentChainId = await ethereum().request({ method: "eth_chainId" });
+  if (currentChainId === ChatAppChainId) return;
+
+  try {
+    await ethereum().request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: ChatAppChainId }],
+    });
+  } catch (switchError) {
+    if (switchError?.code !== 4902) {
+      throw new Error(
+        "Please switch MetaMask to Hardhat Localhost instead of Ethereum Mainnet."
+      );
+    }
+
+    await ethereum().request({
+      method: "wallet_addEthereumChain",
+      params: [
+        {
+          chainId: ChatAppChainId,
+          chainName: "Hardhat Localhost",
+          nativeCurrency: {
+            name: "Ethereum",
+            symbol: "ETH",
+            decimals: 18,
+          },
+          rpcUrls: ["http://127.0.0.1:8545"],
+          blockExplorerUrls: [],
+        },
+      ],
+    });
+  }
+};
 
 export const checkIfWalletConnected = async () => {
   try {
@@ -148,6 +180,8 @@ export const connectingWithContract = async () => {
     }
 
     await ethereum().request({ method: "eth_requestAccounts" });
+    await switchToConfiguredNetwork();
+
     const provider = new ethers.providers.Web3Provider(ethereum(), "any");
     const code = await provider.getCode(ChatAppAddress);
     if (!code || code === "0x") {

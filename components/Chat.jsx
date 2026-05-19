@@ -11,10 +11,10 @@ const getSender = (message) =>
   message?.sender || message?.from || message?.[0] || "";
 
 const getText = (message) =>
-  message?.msg || message?.message || message?.text || message?.[1] || "";
+  message?.content || message?.msg || message?.message || message?.text || message?.[2] || "";
 
 const getTimestamp = (message) =>
-  message?.timestamp || message?.time || message?.[2] || "";
+  message?.timestamp || message?.time || message?.[1] || "";
 
 const Chat = () => {
   const router = useRouter();

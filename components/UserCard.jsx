@@ -29,8 +29,11 @@ const avatars = [
 ];
 
 const normalizeUser = (user) => ({
-  name: user?.name || user?.[1] || "Unnamed",
-  address: user?.accountAddress || user?.pubkey || user?.[0] || "",
+  name: user?.name || user?.[1] || "Registered user",
+  address:
+    typeof user === "string"
+      ? user
+      : user?.accountAddress || user?.pubkey || user?.[0] || "",
 });
 
 const UserCard = () => {
